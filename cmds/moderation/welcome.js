@@ -10,23 +10,25 @@ module.exports = class WelcomeCommand extends Command {
       memberName: "setwelcome",
       description:
         "Set a welcome message for new members (leave blank for no message). Use `<@>` to mention new member.",
-      examples: ["setwelcome {#channel} {welcome message}" , `.setwelcome Welcome to my server <@>! Enjoy your stay!`],
+      examples: [
+        "setwelcome {#channel} {welcome message}",
+        `.setwelcome Welcome to my server <@>! Enjoy your stay!`,
+      ],
       argsType: "multiple",
       userPermissions: ["MANAGE_GUILD"],
+      guildOnly: true,
     });
   }
 
   async run(message, args) {
     const { member, channel, guild } = message;
 
-    console.log(args.join(" "));
-
     if (!args[0]) {
       args = [" "];
-      cache[guild.id] = null;
+      cache[guild.id].welcome = null;
     }
-    // else
-    //   cache[guild.id].welcome = [channel.id, args.join(" ")];
+    else
+      cache[guild.id].welcome = [channel.id, args.join(" ")];
     
     await mongo().then(async (mongoose) => {
       try {

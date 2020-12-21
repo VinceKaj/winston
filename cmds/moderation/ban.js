@@ -12,6 +12,7 @@ module.exports = class BanCommand extends Command {
       argsType: "multiple",
       clientPermissions: ["BAN_MEMBERS"],
       userPermissions: ["BAN_MEMBERS"],
+      guildOnly: true,
     });
   }
 

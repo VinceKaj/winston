@@ -26,7 +26,7 @@ const guildSchema = mongoose.Schema({
   longWolframQueriesTotal: reqNumber,
   memberCount: reqNumber,
   dateJoined: reqDate,
-  premium: reqBool
+  premium: reqBool,
 });
 
 module.exports = mongoose.model("guild", guildSchema);

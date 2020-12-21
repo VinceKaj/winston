@@ -9,13 +9,13 @@ module.exports = class PardonCommand extends (
       name: "unban",
       group: "moderation",
       memberName: "unban",
-      description:
-        "unban a member from the server",
+      description: "unban a member from the server",
       examples: ["unban {user id}", `.unban <@${process.env.CREATOR}>`],
       argsType: "multiple",
       aliases: ["pardon"],
       clientPermissions: ["BAN_MEMBERS"],
       userPermissions: ["BAN_MEMBERS"],
+      guildOnly: true,
     });
   }
 

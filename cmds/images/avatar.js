@@ -10,6 +10,7 @@ module.exports = class AvatarCommand extends Command {
       description: "get the avatar of a specific member of the server",
       examples: ['.avatar', `.avatar <@${bot.user.id}>`, `.avatar <@${process.env.CREATOR}>`],
       argsType: "multiple",
+      guildOnly: true,
     });
   }
 

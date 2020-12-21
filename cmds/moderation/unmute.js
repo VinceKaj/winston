@@ -10,13 +10,11 @@ module.exports = class UnmuteCommand extends (
       group: "moderation",
       memberName: "unmute",
       description: "Unmute a user from all text channels",
-      examples: [
-        "unmute {user}",
-        `.unmute <@${process.env.CREATOR}>`,
-      ],
+      examples: ["unmute {user}", `.unmute <@${process.env.CREATOR}>`],
       argsType: "multiple",
       clientPermissions: ["MANAGE_ROLES"],
       userPermissions: ["MANAGE_ROLES"],
+      guildOnly: true,
     });
   }
 

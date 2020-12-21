@@ -10,10 +10,24 @@ const reqArray = {
   required: true
 }
 
+const reqBool = {
+  type: Boolean,
+  required: true
+}
+
+const reqNumber = {
+  type: Number,
+  required: true
+}
+
 const starboardSchema = mongoose.Schema({
   _id: reqString,
-  _boards: reqArray,
-  _messages: reqArray
+  boards: reqArray,
+  messages: reqArray,
+  selfStar: reqBool,
+  min: reqNumber,
+  channel: reqString,
+  enabled: reqBool
 });
 
 module.exports = mongoose.model("starboard", starboardSchema);

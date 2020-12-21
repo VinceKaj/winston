@@ -15,7 +15,7 @@ module.exports = class AskCommand extends (
       name: "ask",
       group: "utility",
       memberName: "ask",
-      description: "ask Winston and he will try to answer",
+      description: "ask Winston something",
       aliases: ["a"],
       examples: [
         "ask {query}",
