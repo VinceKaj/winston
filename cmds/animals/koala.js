@@ -9,12 +9,13 @@ module.exports = class koalaCommand extends (
       name: "koala",
       group: "animals",
       memberName: "koala",
+      format: `["fact"]`,
       description: "get a koala picture or a koala fact with `.koala fact`",
       examples: [".koala", `.koala fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "koala");
+    fetchAnimal(message, args, "koala");
   }
 };

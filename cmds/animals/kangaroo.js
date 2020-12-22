@@ -9,12 +9,14 @@ module.exports = class kangarooCommand extends (
       name: "kangaroo",
       group: "animals",
       memberName: "kangaroo",
-      description: "get a kangaroo picture or a kangaroo fact with `.kangaroo fact`",
+      format: `["fact"]`,
+      description:
+        "get a kangaroo picture or a kangaroo fact with `.kangaroo fact`",
       examples: [".kangaroo", `.kangaroo fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "kangaroo");
+    fetchAnimal(message, args, "kangaroo");
   }
 };

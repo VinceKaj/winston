@@ -10,7 +10,8 @@ module.exports = class KickCommand extends (
       group: "moderation",
       memberName: "clear",
       description: "bulk delete messages in a channel",
-      examples: ["purge {amount}", `.purge 100`],
+      format: `{amount}`,
+      examples: [`.purge 100`],
       aliases: ["clear"],
       clientPermissions: ["MANAGE_MESSAGES"],
       userPermissions: ["MANAGE_MESSAGES"],
@@ -37,7 +38,7 @@ module.exports = class KickCommand extends (
       // Logging the number of messages deleted on both the channel and console.
       channel
         .send(`I deleted **${args}** messages.`)
-        .then((msg) => msg.delete({ timeout: 3000 }));
+        .then((msg) => msg.delete({ timeout: 2000 }));
     })
     .catch((err) => {
       console.log("Error while doing Bulk Delete\n" + err);

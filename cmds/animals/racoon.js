@@ -9,12 +9,13 @@ module.exports = class racoonCommand extends (
       name: "racoon",
       group: "animals",
       memberName: "racoon",
+      format: `["fact"]`,
       description: "get a racoon picture or a racoon fact with `.racoon fact`",
       examples: [".racoon", `.racoon fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "racoon");
+    fetchAnimal(message, args, "racoon");
   }
 };

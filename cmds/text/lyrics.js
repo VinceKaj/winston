@@ -10,12 +10,16 @@ module.exports = class LyricsCommand extends (
       name: "lyrics",
       group: "text",
       memberName: "lyrics",
+      format: `{song name} [band name]`,
       description: "get the lyrics of a song by name",
       examples: [
-        "lyrics [author] {song name}",
         ".lyrics lose yourself eminem",
         ".lyrics pharrell williams happy",
       ],
+      throttling: {
+        usages: 1,
+        duration: 10,
+      },
     });
   }
 
@@ -23,6 +27,8 @@ module.exports = class LyricsCommand extends (
     const { channel, author} = message;
 
     if (args) {
+      const msg = await channel.send("Loading lyrics...");
+
       const result = await fetch(`https://some-random-api.ml/lyrics?title=${args}`, { method: "Get", });
       const json = await result.json();
 
@@ -40,7 +46,7 @@ module.exports = class LyricsCommand extends (
           .setTimestamp()
           .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
-        channel.send(embed);
+        msg.edit('', embed);
         return;
       }
     }

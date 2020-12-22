@@ -33,12 +33,11 @@ module.exports = class BinaryCommand extends (
       name: "8ball",
       group: "fun",
       memberName: "8ball",
+      format: `[question]`,
       description: "ask magic 8ball a question",
-      examples: ["8ball {question}", ".8ball is Winston the best bot?"],
+      examples: [".8ball is Winston the best bot?"],
     });
   }
-
-  
 
   async run(message) {
     const { channel } = message;

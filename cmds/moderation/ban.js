@@ -8,7 +8,10 @@ module.exports = class BanCommand extends Command {
       group: "moderation",
       memberName: "ban",
       description: "ban a member from the server",
-      examples: ["ban {user} [reason]", `.ban <@${process.env.CREATOR}> for breaking the rules`],
+      format: `{@user} [reason]`,
+      examples: [
+        `.ban <@${process.env.CREATOR}> for breaking the rules`,
+      ],
       argsType: "multiple",
       clientPermissions: ["BAN_MEMBERS"],
       userPermissions: ["BAN_MEMBERS"],

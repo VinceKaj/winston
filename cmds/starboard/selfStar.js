@@ -17,7 +17,6 @@ module.exports = class WelcomeCommand extends (
         "Change whether users can add stars to their own messages (write `default` for default value)",
       alias: ["sb-selfstar", "starboard-self-star"],
       examples: [
-        "starboard-selfstar {enable/disable}",
         `.starboard-selfstar default`,
         ".starboard-selfstar true",
       ],

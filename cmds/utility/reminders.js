@@ -12,9 +12,9 @@ module.exports = class RemindCommand extends (
       aliases: ["reminder", "rm"],
       group: "utility",
       memberName: "remindme",
+      format: `{interval} [message]`,
       description: "be reminded of something in a given interval",
       examples: [
-        "remindme {interval} [information]",
         ".remindme 3d",
         ".remindme 1h dinner is ready",
       ],

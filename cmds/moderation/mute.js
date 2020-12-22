@@ -12,9 +12,10 @@ module.exports = class MuteCommand extends (
       group: "moderation",
       memberName: "mute",
       description: "Mute a user in all text channels)",
+      format: `{@user} [duration] [reason]`,
       examples: [
-        "mute {user} [duration] [reason]",
         `.mute <@${process.env.CREATOR}> 2h for spam`,
+        `.mute <@264811613708746752> this mute will be permanenet`,
       ],
       argsType: "multiple",
       clientPermissions: ["MANAGE_ROLES"],

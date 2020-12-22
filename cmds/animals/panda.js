@@ -9,12 +9,13 @@ module.exports = class pandaCommand extends (
       name: "panda",
       group: "animals",
       memberName: "panda",
+      format: `["fact"]`,
       description: "get a panda picture or a panda fact with `.panda fact`",
       examples: [".panda", `.panda fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "panda");
+    fetchAnimal(message, args, "panda");
   }
 };

@@ -15,13 +15,18 @@ module.exports = class AskCommand extends (
       name: "ask",
       group: "utility",
       memberName: "ask",
+      format: `{query}`,
       description: "ask Winston something",
       aliases: ["a"],
       examples: [
-        "ask {query}",
-        ".ask height of mount everest",
-        ".ask meaning of life",
+        ".ask what is the height of mount everest",
+        ".ask what is the meaning of life",
+        ".ask are you alive?"
       ],
+      throttling: {
+        usages: 1,
+        duration: 10,
+      },
     });
   }
 
@@ -33,6 +38,7 @@ module.exports = class AskCommand extends (
       return;
     }
 
+    const msg = await channel.send("Thinking...");
     
     let output, result = calculator.calculate(args);
 
@@ -45,7 +51,7 @@ module.exports = class AskCommand extends (
     if (result == "No short answer available" || result == "Wolfram|Alpha did not understand your input")
       result = "Sorry, I don't know how to answer that. Try running `wolfram` command.";
 
-    channel.send(result);
+    msg.edit(result);
 
     if (output) { // if Wolfram was used
       /** SAVE QUERY USE ***/

@@ -21,10 +21,11 @@ const redisReminderPrefix = "reminder-";
 const redisWolframPrefix = "wolfram-expire";
 
 const TOKEN =
-  process.env.MODE == "DEVELOPER"
+  (process.env.MODE == "DEVELOPER"
     ? process.env.BETA_TOKEN
-    : process.env.BOT_TOKEN;
-const PREFIX = process.env.MODE == "DEVELOPER" ? "?" : ".";
+    : process.env.BOT_TOKEN);
+const PREFIX = (process.env.MODE == "DEVELOPER" ? "?" : ".");
+const MONGO_URL = (process.env.MODE == "DEVELOPER" ? process.env.MONGO_URL_OLD : process.env.MONGO_URL);
 
 global.cache = { starboards: {} }; // memory data
 
@@ -41,7 +42,7 @@ const bot = new CommandoClient({
 });
 
 bot.setProvider(
-  MongoClient.connect(process.env.MONGO_URL)
+  MongoClient.connect(MONGO_URL)
     .then((bot) => {
       return new MongoDBProvider(bot);
     })

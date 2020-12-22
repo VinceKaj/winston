@@ -9,12 +9,13 @@ module.exports = class birdCommand extends (
       name: "bird",
       group: "animals",
       memberName: "bird",
+      format: `["fact"]`,
       description: "get a bird picture or a bird fact with `.bird fact`",
       examples: [".bird", `.bird fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "birb");
+    fetchAnimal(message, args, "birb");
   }
 };

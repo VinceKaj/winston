@@ -16,7 +16,6 @@ module.exports = class WelcomeCommand extends (
       description:
         "Change how many :star: needed for message to go to starboard (write `default` for default value)",
       examples: [
-        "starboard-min {integer}",
         `.starboard-min default`,
         ".starboard-min 5",
       ],

@@ -9,8 +9,9 @@ module.exports = class EchoCommand extends (
       name: "echo",
       group: "text",
       memberName: "echo",
-      description: "the bot sends a message",
-      examples: ["echo [channel] {message}", ".echo hello, my name is Wilson!"],
+      description: "send a message to a specific channel",
+      format: `[channel] {message}`,
+      examples: [".echo hello, my name is Wilson!", ".echo #general this message is in general :eyes:"],
       aliases: ["say"],
       argsType: "multiple",
     });
@@ -37,6 +38,9 @@ module.exports = class EchoCommand extends (
       }
 
       channel.send(args);
+      message.react("✅");
+    } else {
+      channel.send("I cannot send empty messages.");
     }
   }
 };

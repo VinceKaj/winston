@@ -11,10 +11,11 @@ module.exports = class WelcomeCommand extends Command {
       description:
         "Set a welcome message for new members (leave blank for no message). Use `<@>` to mention new member.",
       examples: [
-        "setwelcome {welcome message}",
         `.setwelcome Welcome to my server <@>! Enjoy your stay!`,
+        `.setwelcome Hi there! :grin:`
       ],
       argsType: "multiple",
+      format: `[welcome message]`,
       userPermissions: ["MANAGE_GUILD"],
       guildOnly: true,
     });

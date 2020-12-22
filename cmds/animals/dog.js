@@ -9,12 +9,13 @@ module.exports = class dogCommand extends (
       name: "dog",
       group: "animals",
       memberName: "dog",
+      format: `["fact"]`,
       description: "get a dog picture or a dog fact with `.dog fact`",
       examples: [".dog", `.dog fact`],
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, fact, "dog");
+    fetchAnimal(message, args, "dog");
   }
 };

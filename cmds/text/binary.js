@@ -11,8 +11,8 @@ module.exports = class BinaryCommand extends (
       group: "text",
       memberName: "binary",
       description: "encode and decode binary messages",
+      format: `{encode or decode} {input}`,
       examples: [
-        "binary {encode/decode} {message}",
         ".binary decode 01101000 01100101 01101100 01101100 01101111",
         ".binary encode hello world!",
       ],
@@ -24,6 +24,7 @@ module.exports = class BinaryCommand extends (
     const { channel, author } = message;
 
     if (args[0]) {
+      const msg = await channel.send("Loading result...");
       let type;
 
       if (args[0].toLowerCase() == "decode")
@@ -51,7 +52,7 @@ module.exports = class BinaryCommand extends (
         .setTimestamp()
         .setFooter(`Requested by ${author.tag}`, author.avatarURL());
       
-      channel.send(embed);
+      msg.edit(embed);
       return;
     }
     channel.send("Please specify whether you want to encode or decode.\n`binary encode {text}`\n`binary decode {binary}`");

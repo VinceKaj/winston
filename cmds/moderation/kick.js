@@ -8,8 +8,8 @@ module.exports = class KickCommand extends Command {
       group: "moderation",
       memberName: "kick",
       description: "Kick a member from the server",
+      format: `{@user} [reason]`,
       examples: [
-        "kick {user} [reason]",
         `.kick <@${process.env.CREATOR}> for being naughty`,
       ],
       argsType: "multiple",

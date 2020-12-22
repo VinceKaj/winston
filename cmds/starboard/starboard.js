@@ -17,12 +17,14 @@ module.exports = class WelcomeCommand extends (
       memberName: "starboard",
       description: "Create, delete, enable and disable starboard channel",
       examples: [
-        "starboard {command}",
         `.starboard create`,
         ".starboard delete",
         ".starboard disable",
+        ".starboard selfstar enable",
+        ".starboard min 4"
       ],
       argsType: "multiple",
+      format: `{command} [arguments]`,
       userPermissions: ["MANAGE_GUILD"],
       clientPermissions: ["MANAGE_CHANNELS"],
       guildOnly: true,

@@ -7,10 +7,10 @@ module.exports = class AddCommand extends Command {
           name: "calculate",
           aliases: ["c", "calc"],
           group: "utility",
+          format: `{query}`,
           memberName: "calculate",
           description: "calculate something with a basic calculator",
           examples: [
-            "calculate {query}",
             ".calculate 23*47",
             ".calculate pi * 4 ^ 2",
           ],

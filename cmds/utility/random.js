@@ -9,6 +9,7 @@ module.exports = class RandomCommand extends (
       name: "random",
       group: "utility",
       memberName: "random",
+      format: `[min-max] [list, of, items]`,
       description:
         "generate a random number or choose an option out of given ones",
       examples: ["random 1-100", "random apple, banana, pear, orange"],
