@@ -20,17 +20,24 @@ const redisKeyPrefix = "muted-";
 const redisReminderPrefix = "reminder-";
 const redisWolframPrefix = "wolfram-expire";
 
-const TOKEN = (process.env.MODE == "DEVELOPER" ? process.env.BETA_TOKEN : process.env.BOT_TOKEN);
-const PREFIX = (process.env.MODE == "DEVELOPER" ? "?" : ".");
+const TOKEN =
+  process.env.MODE == "DEVELOPER"
+    ? process.env.BETA_TOKEN
+    : process.env.BOT_TOKEN;
+const PREFIX = process.env.MODE == "DEVELOPER" ? "?" : ".";
 
 global.cache = { starboards: {} }; // memory data
 
-const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+const client = new Discord.Client({
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+});
 
 const bot = new CommandoClient({
   owner: process.env.CREATOR,
   commandPrefix: PREFIX,
-  disableEveryone: true
+  disableEveryone: true,
+  unknownCommandResponse: false,
+  invite: "https://discord.gg/P8xBnNdvSX",
 });
 
 bot.setProvider(
@@ -49,24 +56,34 @@ bot.login(TOKEN);
 
 bot.on("ready", async () => {
   bot.registry
+    .registerDefaultTypes()
+    .registerDefaultGroups()
+    .registerDefaultCommands({
+      unknownCommand: false,
+    })
     .registerGroups([
-      ["moderation", "Moderation commands"],
-      ["utility", "Utility commands"],
-      ["text", "Text commands"],
-      ["images", "Image commands"],
       ["animals", "Animal commands"],
-      ["starboard", "Starboard commands"]
+      ["fun", "Fun commands"],
+      ["images", "Image commands"],
+      ["moderation", "Moderation commands"],
+      ["starboard", "Starboard commands"],
+      ["text", "Text commands"],
+      ["utility", "Utility commands"],
     ])
-    .registerDefaults()
     .registerCommandsIn(path.join(__dirname, "cmds"));
 
-  bot.user.setActivity(`${bot.guilds.cache.size} servers`, { type: 'WATCHING'} );
+  if (process.env.MODE != "DEVELOPER")
+    bot.user.setActivity(`${bot.guilds.cache.size} servers`, {
+      type: "WATCHING",
+    });
   console.log(`Signed in as ${bot.user.tag}!`);
 });
 
 bot.on("guildCreate", async (guild) => {
-  
-  bot.user.setActivity(`${bot.guilds.cache.size} servers`, { type: "WATCHING" }); // WATCHING {AMOUNT} SERVERS
+  if (process.env.MODE != "DEVELOPER")
+    bot.user.setActivity(`${bot.guilds.cache.size} servers`, {
+      type: "WATCHING",
+    }); // WATCHING {AMOUNT} SERVERS
 
   /*** Add new guild to database ***/
   await AddGuildToMongo(guild);
@@ -123,9 +140,12 @@ bot.on("guildMemberAdd", async (member) => {
 
   /*** WELCOME MESSAGE ***/
   let data;
-  if (cache[guild.id] && cache[guild.id].welcome != null)
+
+  if (!cache[guild.id]) cache[guild.id] = {};
+
+  if (cache[guild.id] && cache[guild.id].welcome != null) {
     data = cache[guild.id].welcome;
-  else {
+  } else {
     await mongo().then(async (mongoose) => {
       // if no welcome message, retreive from DB
       try {
@@ -141,11 +161,9 @@ bot.on("guildMemberAdd", async (member) => {
   channel.send(data[1].replace(/<@>/g, `<@${member.id}>`)); // sends welcome message to channel
 });
 
-bot.on("message", async (message) => {
-})
+bot.on("message", async (message) => {});
 
 client.on("messageReactionAdd", async (reaction, user) => {
-
   if (reaction.partial) await reaction.fetch();
 
   StarboardManager(reaction, user); // All starboard reaction functionality
@@ -276,12 +294,10 @@ async function StarboardManager(reaction, user) {
   }
 }
 
-client.on("messageReactionRemove", async (reaction, user) => {
-
-});
+client.on("messageReactionRemove", async (reaction, user) => {});
 
 /*** CALLED WHEN REDIS EXPIRES ***/
-redis.expire(async message => {
+redis.expire(async (message) => {
   const redisClient = await redis();
   try {
     redisClient.set(redisWolframPrefix, "true", "EX", ms("1d") / 1000);
@@ -304,7 +320,8 @@ redis.expire(async message => {
     const split = message.split("-"); // ["reminder", user_id, interval, message...]
 
     const user = bot.users.cache.get(split[1]);
-    if (!user) // if not found in cache
+    if (!user)
+      // if not found in cache
       user = bot.users.fetch(split[1]);
 
     const interval = ms(split[2] * 1, { long: true }); // * 1 converts into number (needed)
@@ -313,10 +330,12 @@ redis.expire(async message => {
     const embed = new Discord.MessageEmbed()
       .setColor("#8111d1")
       .setTitle("Reminder")
-      .setDescription(`${interval} ago you asked me to remind you:\n${reminder}`)
+      .setDescription(
+        `${interval} ago you asked me to remind you:\n${reminder}`
+      )
       .setTimestamp()
       .setFooter(`Requested by ${user.tag}`, user.avatarURL());
 
     user.send(embed);
   }
-})
+});

@@ -9,10 +9,11 @@ module.exports = class RandomCommand extends (
       name: "random",
       group: "utility",
       memberName: "random",
-      description: "generate a random number or choose an option out of given ones",
+      description:
+        "generate a random number or choose an option out of given ones",
       examples: ["random 1-100", "random apple, banana, pear, orange"],
       aliases: ["r", "random", "rand"],
-      argsType: "multiple"
+      argsType: "multiple",
     });
   }
 

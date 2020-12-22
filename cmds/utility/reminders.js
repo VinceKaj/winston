@@ -62,5 +62,7 @@ module.exports = class RemindCommand extends (
     } finally {
       redisClient.quit();
     }
+
+    channel.send(`Alright, <@${author.id}>, I'll remind you about "${reminder}" in **${ms(interval*1000, { long: true })}**.`);
   }
 };

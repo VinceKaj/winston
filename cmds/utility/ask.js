@@ -42,7 +42,10 @@ module.exports = class AskCommand extends (
       result = await output.text();
     }
 
-    message.reply(result);
+    if (result == "No short answer available" || result == "Wolfram|Alpha did not understand your input")
+      result = "Sorry, I don't know how to answer that. Try running `wolfram` command.";
+
+    channel.send(result);
 
     if (output) { // if Wolfram was used
       /** SAVE QUERY USE ***/

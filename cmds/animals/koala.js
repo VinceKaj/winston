@@ -1,7 +1,7 @@
 const { Command } = require("discord.js-commando");
 const { fetchAnimal } = require("./animals.js");
 
-module.exports = class KoalaCommand extends (
+module.exports = class koalaCommand extends (
   Command
 ) {
   constructor(bot) {
@@ -11,11 +11,10 @@ module.exports = class KoalaCommand extends (
       memberName: "koala",
       description: "get a koala picture or a koala fact with `.koala fact`",
       examples: [".koala", `.koala fact`],
-      argsType: "multiple",
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, args, "koala");
+    fetchAnimal(message, fact, "koala");
   }
 };

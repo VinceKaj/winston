@@ -13,12 +13,13 @@ module.exports = class WelcomeCommand extends (
       name: "starboard self-star",
       group: "starboard",
       memberName: "starboard-selfstar",
-      description: "Change whether users can add stars to their own messages (write `default` for default value)",
+      description:
+        "Change whether users can add stars to their own messages (write `default` for default value)",
       alias: ["sb-selfstar", "starboard-self-star"],
       examples: [
         "starboard-selfstar {enable/disable}",
         `.starboard-selfstar default`,
-        ".starboard-selfstar true"
+        ".starboard-selfstar true",
       ],
       userPermissions: ["MANAGE_GUILD"],
       guildOnly: true,

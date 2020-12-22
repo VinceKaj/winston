@@ -15,7 +15,7 @@ module.exports = class CoinCommand extends (
     });
   }
 
-  async run(message, args) {
+  async run(message) {
 
     const heads = Math.floor(Math.random() * 2);
     const res = heads ? "heads" : "tails";

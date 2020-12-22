@@ -90,7 +90,8 @@ module.exports = class MuteCommand extends (
 
     // Make sure mute role is active on all channels
     guild.channels.cache.forEach((ch) => {
-      ch.updateOverwrite(mutedRole, { SEND_MESSAGES: false });
+      try { ch.updateOverwrite(mutedRole, { SEND_MESSAGES: false }); }
+      catch (e) {}
     });
 
     member.roles.add(mutedRole); // add role
@@ -103,9 +104,10 @@ module.exports = class MuteCommand extends (
       .setColor("#ff0000")
       .setTitle("Server Mute")
       .addFields(
-        { name: "Muted", value: member.user.tag },
+        { name: "Muted", value: `<@${member.user.id}>`, inline: true },
+        { name: "Duration", value: durationText, inline: true },
         { name: "Reason", value: reason },
-        { name: "Duration", value: durationText }
+        { name: "Moderator", value: `<@${author.id}>` },
       )
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());

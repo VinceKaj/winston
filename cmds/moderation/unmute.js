@@ -35,9 +35,6 @@ module.exports = class UnmuteCommand extends (
       if (target.startsWith("!")) target = target.slice(1);
     }
     const member = guild.members.cache.get(target); // set user target as ID
-    let duration = -1,
-      reason = "None";
-
 
     /* MUTE ROLE */
     let mutedRole = guild.roles.cache.find((role) => role.name === "Muted");
@@ -62,7 +59,8 @@ module.exports = class UnmuteCommand extends (
       .setColor("#7CFC00")
       .setTitle("Server Unmute")
       .addFields(
-        { name: "Unmuted", value: member.user.tag },
+        { name: "Unmuted", value: `<@${member.user.id}>`},
+        { name: "Moderator", value: `<@${author.id}>` }
       )
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());

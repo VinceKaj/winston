@@ -9,7 +9,6 @@ module.exports = class AvatarCommand extends Command {
       memberName: "avatar",
       description: "get the avatar of a specific member of the server",
       examples: ['.avatar', `.avatar <@${bot.user.id}>`, `.avatar <@${process.env.CREATOR}>`],
-      argsType: "multiple",
       guildOnly: true,
     });
   }
@@ -18,9 +17,9 @@ module.exports = class AvatarCommand extends Command {
     const { channel, guild, author } = message;
     let member;
 
-    if (args[0] && args[0].startsWith("<@") && args[0].endsWith(">")) {
+    if (args && args.startsWith("<@") && args.endsWith(">")) {
       // is a mention
-      let target = args[0].slice(2, -1);
+      let target = args.slice(2, -1);
 
       if (target.startsWith("!")) target = target.slice(1);
 

@@ -17,9 +17,8 @@ module.exports = class BanCommand extends Command {
   }
 
   async run(message, args) {
+    const { guild, channel, author } = message;
     let target;
-
-    const { guild } = message;
 
     /* Get target mention */
     if (args[0] && args[0].startsWith("<@") && args[0].endsWith(">")) {
@@ -37,10 +36,24 @@ module.exports = class BanCommand extends Command {
     }
 
     if (member.bannable) {
-      message.channel.send(
-        `**${member.user.tag}** has been banned from the server by **${message.author.tag}**`
-      );
-      member.ban();
+
+      let reason = "None";
+      if (args[1]) reason = args.slice(1, args.length).join(" ");
+
+      const embed = new Discord.MessageEmbed()
+        .setColor('#000000')
+        .setTitle('Server Ban')
+        .addFields(
+          { name: 'Banned', value: `${member.user.tag}`},
+          { name: 'Reason', value: reason },
+          { name: "Moderator", value: `<@${author.id}>` }
+        )
+        .setTimestamp()
+        .setFooter(`Requested by ${author.tag}`, author.avatarURL());
+
+      channel.send(embed);
+      member.ban({ reason: reason });
+
     } else {
       message.channel.send("I'm not high enough in the hierarchy to do that.");
     }

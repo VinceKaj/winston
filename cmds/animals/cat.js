@@ -1,7 +1,9 @@
 const { Command } = require("discord.js-commando");
 const { fetchAnimal } = require("./animals.js");
 
-module.exports = class CatCommand extends Command {
+module.exports = class catCommand extends (
+  Command
+) {
   constructor(bot) {
     super(bot, {
       name: "cat",
@@ -9,11 +11,10 @@ module.exports = class CatCommand extends Command {
       memberName: "cat",
       description: "get a cat picture or a cat fact with `.cat fact`",
       examples: [".cat", `.cat fact`],
-      argsType: "multiple",
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, args, "cat");
+    fetchAnimal(message, fact, "cat");
   }
-}
+};

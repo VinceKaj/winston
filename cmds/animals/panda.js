@@ -11,11 +11,10 @@ module.exports = class pandaCommand extends (
       memberName: "panda",
       description: "get a panda picture or a panda fact with `.panda fact`",
       examples: [".panda", `.panda fact`],
-      argsType: "multiple",
     });
   }
 
   async run(message, args) {
-    fetchAnimal(message, args, "panda");
+    fetchAnimal(message, fact, "panda");
   }
 };

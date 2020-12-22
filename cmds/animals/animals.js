@@ -6,7 +6,7 @@ async function fetchAnimal(message, args, animal) {
   });
   const json = await result.json();
 
-  if (args && args[0] == "fact") {
+  if (args && args == "fact") {
     message.channel.send(json.fact);
   } else {
     message.channel.send("", { files: [json.image] });

@@ -11,7 +11,7 @@ module.exports = class WelcomeCommand extends Command {
       description:
         "Set a welcome message for new members (leave blank for no message). Use `<@>` to mention new member.",
       examples: [
-        "setwelcome {#channel} {welcome message}",
+        "setwelcome {welcome message}",
         `.setwelcome Welcome to my server <@>! Enjoy your stay!`,
       ],
       argsType: "multiple",

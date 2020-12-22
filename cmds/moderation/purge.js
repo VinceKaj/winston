@@ -10,10 +10,8 @@ module.exports = class KickCommand extends (
       group: "moderation",
       memberName: "clear",
       description: "bulk delete messages in a channel",
-      examples: [
-        "clear {amount}",
-        `.clear 100`,
-      ],
+      examples: ["purge {amount}", `.purge 100`],
+      aliases: ["clear"],
       clientPermissions: ["MANAGE_MESSAGES"],
       userPermissions: ["MANAGE_MESSAGES"],
       guildOnly: true,
@@ -21,27 +19,28 @@ module.exports = class KickCommand extends (
   }
 
   async run(message, args) {
-
     const { author, channel, guild } = message;
 
-    if (!Number.isInteger(args))
-      return channel.send("Please give me an integer to purge messages.");
+    if (!Number.isInteger(args*1) || args < 1)
+      return channel.send("Please give me a valid integer to purge messages.");
     
     if(args > 100)
       return channel.send("I cannot clear more than 100 messages.");
 
-      channel.messages.fetch({
-        limit: args*1,
-      })
-      .then((messages) => {
-        channel.bulkDelete(messages);
-        // Logging the number of messages deleted on both the channel and console.
-        channel
-          .send(`I deleted **${args}** messages.`)
-          .then((message) => message.delete(5000));
-      })
-      .catch((err) => {
-        console.log("Error while doing Bulk Delete\n" + err);
-      });
+    message.delete(); // delete command message
+
+    channel.messages.fetch({
+      limit: args*1,
+    })
+    .then((messages) => {
+      channel.bulkDelete(args * 1);
+      // Logging the number of messages deleted on both the channel and console.
+      channel
+        .send(`I deleted **${args}** messages.`)
+        .then((msg) => msg.delete({ timeout: 3000 }));
+    })
+    .catch((err) => {
+      console.log("Error while doing Bulk Delete\n" + err);
+    });
   }
 };

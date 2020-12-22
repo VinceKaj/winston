@@ -20,9 +20,9 @@ module.exports = class KickCommand extends Command {
   }
 
   async run(message, args) {
-    let target;
-    
+
     const { author, channel, guild } = message;
+    let target;
 
     /* Get target mention */
     if (args[0] && args[0].startsWith('<@') && args[0].endsWith('>')) {// is a mention
@@ -46,21 +46,24 @@ module.exports = class KickCommand extends Command {
     if (member.kickable) {
 
         const embed = new Discord.MessageEmbed()
-        .setColor('#0000ff')
-        .setTitle('Server Kick')
-        .addFields(
-          { name: 'Kicked', value: member.tag },
-          { name: 'Reason', value: reason }
-        )
-        .setTimestamp()
-        .setFooter(`Requested by ${author.tag}`, author.avatarURL());
+          .setColor("#0000ff")
+          .setTitle("Server Kick")
+          .addFields(
+            {
+              name: "Kicked",
+              value: `${member.user.tag}`,
+            },
+            { name: "Reason", value: reason },
+            { name: "Moderator", value: `<@${author.id}>` }
+          )
+          .setTimestamp()
+          .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
-        member.kick(reason);
         channel.send(embed);
+        member.kick(reason);
     }
     else {
         channel.send("I'm not high enough in the hierarchy to do that.");
     }
-
   }
 };

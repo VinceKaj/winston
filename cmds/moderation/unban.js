@@ -10,7 +10,7 @@ module.exports = class PardonCommand extends (
       group: "moderation",
       memberName: "unban",
       description: "unban a member from the server",
-      examples: ["unban {user id}", `.unban <@${process.env.CREATOR}>`],
+      examples: ["unban {user id}", `.unban ${process.env.CREATOR}`],
       argsType: "multiple",
       aliases: ["pardon"],
       clientPermissions: ["BAN_MEMBERS"],
@@ -20,32 +20,33 @@ module.exports = class PardonCommand extends (
   }
 
   async run(message, args) {
-    let target;
+    const { guild, author, channel } = message;
 
-    const { guild } = message;
-
-    /* Get target mention */
-    if (args[0] && args[0].startsWith("<@") && args[0].endsWith(">")) {
-      // is a mention
-      target = args[0].slice(2, -1);
-
-      if (target.startsWith("!")) target = target.slice(1);
-    }
-
-    const member = guild.members.cache.get(target); // set user target as ID
-
-    if (!member) {
-      message.channel.send("Please specify a member to ban.");
+    if (!args[0]) {
+      message.channel.send("Please specify the of the member to unban.");
       return;
     }
+    const bans = await guild.fetchBans();
+    const bannedUser = (bans.size != 0 ? bans.find(b => b.user.id === args[0]) : undefined);
 
-    if (member.bannable) {
-      message.channel.send(
-        `**${member.user.tag}** has been banned from the server by **${message.author.tag}**`
-      );
-      member.ban();
+    if (bannedUser) {
+      const embed = new Discord.MessageEmbed()
+        .setColor("#c8c8c8")
+        .setTitle("Server Unban")
+        .addFields(
+          {
+            name: "Unbanned",
+            value: `${bannedUser.user.tag}`,
+          },
+          { name: "Moderator", value: `<@${author.id}>` }
+        )
+        .setTimestamp()
+        .setFooter(`Requested by ${author.tag}`, author.avatarURL());
+
+      channel.send(embed);
+      guild.members.unban(args[0]); // unbans the user
     } else {
-      message.channel.send("I'm not high enough in the hierarchy to do that.");
-    }
+      channel.send(`<@${args[0]}> (ID: ${args[0]}) is not banned.`);
+    }    
   }
 };

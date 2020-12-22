@@ -38,15 +38,15 @@ module.exports = class BinaryCommand extends (
         return;
       }
 
-      const input = args.slice(1, args.length).join(" ");
+      const query = args.slice(1, args.length).join(" ");
 
-      const result = await fetch(`https://some-random-api.ml/binary?${type[0]}=${input}`, { method: "Get", });
+      const result = await fetch(`https://some-random-api.ml/binary?${type[0]}=${query}`, { method: "Get", });
       const json = await result.json();
 
       const embed = new Discord.MessageEmbed()
         .setColor("#808080")
         .setTitle(`Binary Converter`)
-        .addField("Input", input, true)
+        .addField("Input", query, true)
         .addField("Result", json[type[1]], true)
         .setTimestamp()
         .setFooter(`Requested by ${author.tag}`, author.avatarURL());
@@ -54,6 +54,6 @@ module.exports = class BinaryCommand extends (
       channel.send(embed);
       return;
     }
-    channel.send("Please specify whether you want to encode or decode.\n`encode {text}`\n`decode {binary}`");
+    channel.send("Please specify whether you want to encode or decode.\n`binary encode {text}`\n`binary decode {binary}`");
   }
 };
