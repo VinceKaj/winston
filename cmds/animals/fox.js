@@ -16,7 +16,7 @@ module.exports = class FoxPicture extends (
   }
 
   async run(message, args) {
-    if (args.toLowerCase() == "fox") {
+    if (args.toLowerCase() == "fact") {
       message.channel.send("Fox facts currently not available.");
       return;
     }
