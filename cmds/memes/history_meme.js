@@ -7,13 +7,13 @@ module.exports = class LyricsCommand extends (
 ) {
   constructor(bot) {
     super(bot, {
-      name: "me_irl",
-      group: "reddit",
-      memberName: "me_irl",
+      name: "history-meme",
+      group: "memes",
+      memberName: "history-meme",
       format: "[category]",
-      aliases: ["meirl", "me-irl"],
-      examples: [".me_irl", ".me_irl hot"],
-      description: "get a top post from r/me_irl",
+      aliases: ["history_meme", "historymeme"],
+      examples: [".historymeme", ".historymeme hot"],
+      description: "get a top post from r/HistoryMemes",
       throttling: {
         usages: 1,
         duration: 10,
@@ -24,7 +24,7 @@ module.exports = class LyricsCommand extends (
   async run(message, args) {
     const { author, channel, guild } = message;
 
-    const msg = await channel.send("Loading me_irl meme...");
+    const msg = await channel.send("Loading dank meme...");
 
     args = args.toLowerCase();
 
@@ -35,9 +35,9 @@ module.exports = class LyricsCommand extends (
 
     let res, json;
 
-    while (!json) { // fix URL checker
+    while (!json) { // fix url checker
       res = await fetch(
-        `https://api.reddit.com/r/me_irl/${category}.json?sort=top&t=day&limit=500`
+        `https://api.reddit.com/r/HistoryMemes/${category}.json?sort=top&t=now&limit=500`
       );
       const arr = (await res.json()).data.children;
       json = arr[Math.floor(Math.random() * arr.length)].data;

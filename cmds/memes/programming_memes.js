@@ -7,13 +7,13 @@ module.exports = class LyricsCommand extends (
 ) {
   constructor(bot) {
     super(bot, {
-      name: "meme",
-      group: "reddit",
+      name: "coding-meme",
+      group: "memes",
       format: "[category]",
-      aliases: ["memes"],
       examples: [".meme", ".meme hot"],
-      memberName: "meme",
-      description: "get a top post from r/memes",
+      aliases: ["codingmeme", "programmingmeme", "programming-meme"],
+      memberName: "coding-meme",
+      description: "get a top post from r/ProgrammerHumor",
       throttling: {
         usages: 1,
         duration: 10,
@@ -22,7 +22,6 @@ module.exports = class LyricsCommand extends (
   }
 
   async run(message, args) {
-
     const { author, channel, guild } = message;
 
     const msg = await channel.send("Loading meme...");
@@ -36,8 +35,11 @@ module.exports = class LyricsCommand extends (
 
     let res, json;
 
-    while (!json) { // fix URL checker
-      res = await fetch(`https://api.reddit.com/r/memes/${category}.json?sort=top&t=now&limit=500`);
+    while (!json) {
+      // fix URL checker
+      res = await fetch(
+        `https://api.reddit.com/r/ProgrammerHumor/${category}.json?sort=top&t=now&limit=500`
+      );
       const arr = (await res.json()).data.children;
       json = arr[Math.floor(Math.random() * arr.length)].data;
     }
@@ -46,11 +48,15 @@ module.exports = class LyricsCommand extends (
       .setColor("#ff4500")
       .setTitle(json.title)
       .setURL(`https://reddit.com${json.permalink}`)
-      .setDescription(`:arrow_up: ${json.ups} | :speech_balloon: ${json.num_comments}`)
+      .setDescription(
+        `:arrow_up: ${json.ups} | :speech_balloon: ${json.num_comments}`
+      )
       .setImage(json.url)
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
-    channel.send(embed).then(() => {msg.delete()});
+    channel.send(embed).then(() => {
+      msg.delete();
+    });
   }
 };

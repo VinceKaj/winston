@@ -7,13 +7,12 @@ module.exports = class LyricsCommand extends (
 ) {
   constructor(bot) {
     super(bot, {
-      name: "historymeme",
-      group: "reddit",
-      memberName: "historymeme",
+      name: "meme",
+      group: "memes",
       format: "[category]",
-      aliases: ["historymemes", "history-meme", "history-memes"],
-      examples: [".historymeme", ".historymeme hot"],
-      description: "get a top post from r/HistoryMemes",
+      examples: [".meme", ".meme hot"],
+      memberName: "meme",
+      description: "get a top post from r/memes",
       throttling: {
         usages: 1,
         duration: 10,
@@ -22,9 +21,10 @@ module.exports = class LyricsCommand extends (
   }
 
   async run(message, args) {
+
     const { author, channel, guild } = message;
 
-    const msg = await channel.send("Loading dank meme...");
+    const msg = await channel.send("Loading meme...");
 
     args = args.toLowerCase();
 
@@ -35,10 +35,8 @@ module.exports = class LyricsCommand extends (
 
     let res, json;
 
-    while (!json) { // fix url checker
-      res = await fetch(
-        `https://api.reddit.com/r/HistoryMemes/${category}.json?sort=top&t=now&limit=500`
-      );
+    while (!json) { // fix URL checker
+      res = await fetch(`https://api.reddit.com/r/memes/${category}.json?sort=top&t=now&limit=500`);
       const arr = (await res.json()).data.children;
       json = arr[Math.floor(Math.random() * arr.length)].data;
     }
@@ -47,15 +45,11 @@ module.exports = class LyricsCommand extends (
       .setColor("#ff4500")
       .setTitle(json.title)
       .setURL(`https://reddit.com${json.permalink}`)
-      .setDescription(
-        `:arrow_up: ${json.ups} | :speech_balloon: ${json.num_comments}`
-      )
+      .setDescription(`:arrow_up: ${json.ups} | :speech_balloon: ${json.num_comments}`)
       .setImage(json.url)
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
-    channel.send(embed).then(() => {
-      msg.delete();
-    });
+    channel.send(embed).then(() => {msg.delete()});
   }
 };
