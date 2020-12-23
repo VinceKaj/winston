@@ -15,7 +15,12 @@ module.exports = class FoxPicture extends (
     });
   }
 
-  async run(message) {
+  async run(message, args) {
+    if (args.toLowerCase() == "fox") {
+      message.channel.send("Fox facts currently not available.");
+      return;
+    }
+
     const msg = await message.channel.send("Loading your fox picture...");
     const result = await fetch("https://randomfox.ca/floof/?ref=apilist.fun");
     const json = await result.json();

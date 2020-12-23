@@ -12,7 +12,6 @@ module.exports = class PremiumCommand extends (
       aliases: ["grant-prem"],
       description: "grant a guild premium access",
       ownerOnly: true,
-      guildOnly: true,
     });
   }
 

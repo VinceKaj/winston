@@ -43,7 +43,7 @@ module.exports = class AskCommand extends (
     let output, result = calculator.calculate(args);
 
     if (result == "NaN") {
-      output = await fetch(`http://api.wolframalpha.com/v1/result?appid=${process.env.WOLFRAM_TOKEN_0}&i=${args}`,
+      output = await fetch(`http://api.wolframalpha.com/v1/result?appid=${process.env.WOLFRAM_TOKEN_1}&i=${args}`,
       { method: "Get", } );
       result = await output.text();
     }
@@ -53,7 +53,7 @@ module.exports = class AskCommand extends (
 
     msg.edit(result);
 
-    if (output) { // if Wolfram was used
+    if (output && channel.type != "dm") { // if Wolfram was used
       /** SAVE QUERY USE ***/
       await mongo().then(async (mongoose) => {
         try {

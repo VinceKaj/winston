@@ -14,6 +14,7 @@ module.exports = class EchoCommand extends (
       examples: [".echo hello, my name is Wilson!", ".echo #general this message is in general :eyes:"],
       aliases: ["say"],
       argsType: "multiple",
+      guildOnly: true
     });
   }
 
