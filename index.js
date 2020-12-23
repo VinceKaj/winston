@@ -67,6 +67,7 @@ bot.on("ready", async () => {
       ["fun", "Fun commands"],
       ["images", "Image commands"],
       ["moderation", "Moderation commands"],
+      ["reddit", "Reddit commands"],
       ["starboard", "Starboard commands"],
       ["text", "Text commands"],
       ["utility", "Utility commands"],

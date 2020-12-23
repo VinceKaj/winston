@@ -52,7 +52,7 @@ module.exports = class BinaryCommand extends (
         .setTimestamp()
         .setFooter(`Requested by ${author.tag}`, author.avatarURL());
       
-      msg.edit(embed);
+      msg.edit('Result:', embed);
       return;
     }
     channel.send("Please specify whether you want to encode or decode.\n`binary encode {text}`\n`binary decode {binary}`");
