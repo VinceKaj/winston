@@ -38,8 +38,9 @@ module.exports = class WolframCommand extends (
     const embed = new Discord.MessageEmbed()
       .setColor("#E2073C")
       .setAuthor("Results from Wolfram Alpha", "https://cdn.discordapp.com/attachments/773171511943102484/791270738711019540/a.png", `https://www.wolframalpha.com`)
-      .setDescription(`[Click here to view your query](https://www.wolframalpha.com/input/?i=${encodeURIComponent(args)})`)
-      .setImage(`http://api.wolframalpha.com/v1/simple?appid=${process.env.WOLFRAM_TOKEN_2}&i=${encodeURIComponent(args)}`)
+      .setDescription(`[View results in Wolfram Alpha](https://www.wolframalpha.com/input/?i=${encodeURIComponent(args)})`)
+      .addField("Image not available", "Coming soon")
+      //.setImage(`http://api.wolframalpha.com/v1/simple?appid=${process.env.WOLFRAM_TOKEN_2}&i=${encodeURIComponent(args)}`)
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
