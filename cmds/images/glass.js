@@ -31,7 +31,7 @@ module.exports = class AvatarCommand extends (
     let url;
 
     if (!args || !checkURL(args)) {
-      if (attachments) {
+      if (attachments.array()[0]) {
         const attachArr = attachments.array();
         url = attachArr[0].url;
       } else url = author.avatarURL({ format: "png" });
