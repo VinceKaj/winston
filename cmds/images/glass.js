@@ -10,8 +10,8 @@ module.exports = class AvatarCommand extends (
       name: "smoke",
       group: "images",
       memberName: "smoke",
-      aliases: ["glass"],
       format: `[image url]`,
+      aliases: ["glass"],
       description: "adds smoke filter to image",
       examples: [
         `.smoke https://assets.bonappetit.com/photos/5c62e4a3e81bbf522a9579ce/1:1/w_2560%2Cc_limit/milk-bread.jpg`,
@@ -29,9 +29,21 @@ module.exports = class AvatarCommand extends (
     const msg = await channel.send("Loading filter...");
 
     let url;
+    let member;
+
+    if (args && args.startsWith("<@") && args.endsWith(">")) {
+      // is a mention
+      let target = args.slice(2, -1);
+
+      if (target.startsWith("!")) target = target.slice(1);
+
+      member = guild.members.cache.get(target); // set user target as ID
+    }
 
     if (!args || !checkURL(args)) {
-      if (attachments.array()[0]) {
+      if (member) {
+        url = member.user.avatarURL({ format: "png" });
+      } else if (attachments.array()[0]) {
         const attachArr = attachments.array();
         url = attachArr[0].url;
       } else url = author.avatarURL({ format: "png" });
