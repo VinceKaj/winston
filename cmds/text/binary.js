@@ -24,16 +24,18 @@ module.exports = class BinaryCommand extends (
     const { channel, author } = message;
 
     if (args[0]) {
-      const msg = await channel.send("Loading result...");
       let type;
-
       if (args[0].toLowerCase() == "decode")
         type = ["decode", "text"];
       else if (args[0].toLowerCase() == "encode")
         type = ["text", "binary"];
-      else
+      else {
+        channel.send("Please specify whether you want to encode or decode.\n`binary encode {text}`\n`binary decode {binary}`");
         return;
-      
+      }
+
+      const msg = await channel.send("Loading result...");
+
       if (!args[1]) {
         channel.send("I have nothing to encode or decode.");
         return;
