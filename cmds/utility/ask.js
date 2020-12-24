@@ -7,6 +7,13 @@ const calculator = require("../../calculator");
 const mongo = require("../../mongo");
 const guildSchema = require("../../schemas/guild-schema");
 
+const options = [
+  "olfram",
+  "wolf",
+  "fram",
+  "alpha"
+];
+
 module.exports = class AskCommand extends (
   Command
 ) {
@@ -16,7 +23,7 @@ module.exports = class AskCommand extends (
       group: "utility",
       memberName: "ask",
       format: `{query}`,
-      description: "ask Winston something",
+      description: "ask Winston anything",
       aliases: ["a"],
       examples: [
         ".ask what is the height of mount everest",
@@ -50,7 +57,14 @@ module.exports = class AskCommand extends (
 
     if (result == "No short answer available" || result == "Wolfram|Alpha did not understand your input")
       result = "Sorry, I don't know how to answer that. Try running `wolfram` command.";
-
+    
+    if (result == "I was created by Stephen Wolfram and his team") {
+      if (new RegExp(options.join("|")).test(args.toLowerCase()))
+        result = `Wolfram Alpha was created by Stephen Wolfram and his team`;
+      else
+        result = `I was created by VinceKaj (<@${process.env.CREATOR}>). More information available on my official server: https://discord.gg/P8xBnNdvSX`;
+    }
+    
     msg.edit(result);
 
     if (output && channel.type != "dm") { // if Wolfram was used

@@ -152,18 +152,22 @@ bot.on("guildMemberAdd", async (member) => {
       // if no welcome message, retreive from DB
       try {
         const result = await welcomeSchema.findOne({ _id: guild.id });
-        cache[guild.id].welcome = data = [result.channel, result.text]; // saves welcome message form DB to cache
+        if (result) // checks if there's any welcome data
+          cache[guild.id].welcome = data = [result.channel, result.text]; // saves welcome message form DB to cache
       } finally {
         mongoose.connection.close();
       }
     });
   }
 
-  const channel = guild.channels.cache.get(data[0]); // gets welcome message channel
-  channel.send(data[1].replace(/<@>/g, `<@${member.id}>`)); // sends welcome message to channel
+  if (data) { // if any welcome data was saved
+    const channel = guild.channels.cache.get(data[0]); // gets welcome message channel
+    channel.send(data[1].replace(/<@>/g, `<@${member.id}>`)); // sends welcome message to channel
+  }
 });
 
-bot.on("message", async (message) => {});
+bot.on("message", async (message) => {
+});
 
 client.on("messageReactionAdd", async (reaction, user) => {
   if (reaction.partial) await reaction.fetch();
