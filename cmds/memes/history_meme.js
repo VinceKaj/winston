@@ -11,9 +11,7 @@ module.exports = class LyricsCommand extends (
       name: "history-meme",
       group: "memes",
       memberName: "history-meme",
-      format: "[sort by]",
       aliases: ["history_meme", "historymeme"],
-      examples: [".historymeme", ".historymeme hot"],
       description: "get a top post from r/HistoryMemes",
       throttling: {
         usages: 1,

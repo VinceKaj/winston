@@ -2,23 +2,25 @@ const { Command } = require("discord.js-commando");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 
+const subreddits = [
+  "memes",
+  "dankmemes",
+  "funny"
+];
+
 async function SendMeme(message, args, subreddit) {
   const { author, channel } = message;
 
     const msg = await channel.send("Loading meme...");
 
-    args = args.toLowerCase();
-
-    let category = "top";
-    if (args == "hot" || args == "new") {
-      category = args;
-    }
+    if (subreddit == "memes")
+      subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
 
     let res, json;
 
     while (!json) { // fix url checker
       res = await fetch(
-        `https://api.reddit.com/r/${subreddit}/${category}.json?sort=top&t=now&limit=100`
+        `https://api.reddit.com/r/${subreddit}/top.json?sort=top&t=now&limit=100`
       );
       const arr = (await res.json()).data.children;
       json = arr[Math.floor(Math.random() * arr.length)].data;

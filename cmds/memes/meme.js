@@ -11,10 +11,8 @@ module.exports = class LyricsCommand extends (
     super(bot, {
       name: "meme",
       group: "memes",
-      format: "[sort by]",
-      examples: [".meme", ".meme hot"],
       memberName: "meme",
-      description: "get a top post from r/memes",
+      description: "get the latest, most popular memes",
       throttling: {
         usages: 1,
         duration: 10,
