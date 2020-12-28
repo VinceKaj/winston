@@ -24,7 +24,7 @@ module.exports = class UnmuteCommand extends (
 
     if (!message.member.hasPermission("MANAGE_ROLES")) {
       channel.send(
-        'The `mute` command requires you to have the "Manage roles" permission.'
+        'The `unmute` command requires you to have the "Manage roles" permission.'
       );
       return;
     }

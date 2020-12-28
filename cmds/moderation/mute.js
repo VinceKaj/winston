@@ -95,8 +95,7 @@ module.exports = class MuteCommand extends (
 
     // Make sure mute role is active on all channels
     guild.channels.cache.forEach((ch) => {
-      try { ch.updateOverwrite(mutedRole, { SEND_MESSAGES: false }); }
-      catch (e) {}
+      ch.updateOverwrite(mutedRole, { SEND_MESSAGES: false }).catch((err) => {});
     });
 
     member.roles.add(mutedRole); // add role
