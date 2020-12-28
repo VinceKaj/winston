@@ -22,7 +22,7 @@ module.exports = class UnmuteCommand extends (
   async run(message, args) {
     const { author, channel, content, guild } = message;
 
-    if (!author.hasPermission("MANAGE_ROLES")) {
+    if (!message.member.hasPermission("MANAGE_ROLES")) {
       channel.send(
         'The `mute` command requires you to have the "Manage roles" permission.'
       );
