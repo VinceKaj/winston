@@ -22,21 +22,26 @@ module.exports = class KickCommand extends Command {
   async run(message, args) {
 
     const { author, channel, guild } = message;
-    let target;
+    let target, member;
 
     /* Get target mention */
     if (args[0] && args[0].startsWith('<@') && args[0].endsWith('>')) {// is a mention
-        target = args[0].slice(2, -1);
+      target = args[0].slice(2, -1);
 
-        if (target.startsWith('!'))
-            target = target.slice(1);
+      if (target.startsWith('!'))
+          target = target.slice(1);
+      member = guild.members.cache.get(target);
+    }
+
+    if (!member) {
+      // if a member was not mentioned; return
+      channel.send("Please specify a member to kick.");
+      return;
     }
 
     let reason = "None";
     if (args[1])
       reason = args.slice(1, args.legnth).join(" ");
-
-    const member = guild.members.cache.get(target); // set user target as ID
 
     if (!member) {
         channel.send("Please specify a member to kick.");

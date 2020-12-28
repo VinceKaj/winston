@@ -21,7 +21,7 @@ module.exports = class BanCommand extends Command {
 
   async run(message, args) {
     const { guild, channel, author } = message;
-    let target;
+    let target, member;
 
     /* Get target mention */
     if (args[0] && args[0].startsWith("<@") && args[0].endsWith(">")) {
@@ -29,12 +29,11 @@ module.exports = class BanCommand extends Command {
       target = args[0].slice(2, -1);
 
       if (target.startsWith("!")) target = target.slice(1);
+      member = guild.members.cache.get(target);
     }
 
-    const member = guild.members.cache.get(target); // set user target as ID
-
     if (!member) {
-      message.channel.send("Please specify a member to ban.");
+      channel.send("Please specify a member to ban.");
       return;
     }
 

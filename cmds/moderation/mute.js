@@ -27,21 +27,25 @@ module.exports = class MuteCommand extends (
   async run(message, args) {
     const { author, channel, content, guild } = message;
 
-    /* GET USER TO MUTE */
-    if (!args[0]) {
-      channel.send("Please specify a member to mute.");
+    if (!author.hasPermission("MANAGE_ROLES")) {
+      channel.send('The `mute` command requires you to have the "Manage roles" permission.');
       return;
     }
 
-    let target;
-    if (args[0].startsWith("<@") && args[0].endsWith(">")) {
+    let target, member;
+    if (args[0] && args[0].startsWith("<@") && args[0].endsWith(">")) {
       // if is a mention
       target = args[0].slice(2, -1);
 
       if (target.startsWith("!")) target = target.slice(1);
+      member = guild.members.cache.get(target);
+    }
+    
+    if (!member) { // if a member was not mentioned; return
+      channel.send("Please specify a member to mute.");
+      return;
     }
 
-    const member = guild.members.cache.get(target); // set user target as ID
     let duration = -1,
       reason = "None";
 
