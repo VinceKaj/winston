@@ -167,6 +167,26 @@ bot.on("guildMemberAdd", async (member) => {
 });
 
 bot.on("message", async (message) => {
+  const { author, member, channel, content } = message;
+
+  try {
+    if (author.id == process.env.CREATOR) {
+      let args = content.slice(1, content.length).split(" ");
+
+      if (args[0] == "status") {
+        if (!args[1]) {
+          bot.user.setActivity(`${bot.guilds.cache.size} servers`, {
+            type: "WATCHING",
+          }); // WATCHING {AMOUNT} SERVERS
+        } else {
+          bot.user.setActivity(args.slice(2, args.length).join(" "), {
+            type: args[1].toUpperCase(),
+          });
+        }
+      }
+    }
+  } catch {
+  }
 });
 
 client.on("messageReactionAdd", async (reaction, user) => {
