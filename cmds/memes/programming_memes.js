@@ -24,7 +24,7 @@ module.exports = class LyricsCommand extends (
 
   async run(message, args) {
 
-    SendMemes(message, args, "ProgrammerHumor");
+    SendMeme(message, args, "ProgrammerHumor");
 
   }
 };

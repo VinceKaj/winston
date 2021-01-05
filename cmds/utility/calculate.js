@@ -20,7 +20,8 @@ module.exports = class AddCommand extends Command {
     async run(message, args) {
         const { channel } = message;
 
-        let result = calculator.calculate(query);
-        channel.send(`Input: \`${args}\`\nResult: \`${result}\``);
+        let result = calculator.calculate(args);
+        //channel.send(`Input: \`${args}\`\nResult: \`${result}\``);
+        channel.send(result);
     }
 }
