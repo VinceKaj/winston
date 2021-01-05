@@ -7,6 +7,7 @@ module.exports = class BanCommand extends Command {
       name: "ban",
       group: "moderation",
       memberName: "ban",
+      aliases: [":hammer:"],
       description: "ban a member from the server",
       format: `{@user} [reason]`,
       examples: [
