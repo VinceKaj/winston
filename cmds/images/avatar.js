@@ -39,7 +39,7 @@ module.exports = class AvatarCommand extends Command {
       .setColor("#0099ff")
       .setTitle("User Avatar")
       .setDescription(`<@${member.id}>'s Discord Avatar`)
-      .setImage(member.avatarURL())
+      .setImage(member.avatarURL({ format: "png" }))
       .setTimestamp()
       .setFooter(`Requested by ${author.tag}`, author.avatarURL());
 
