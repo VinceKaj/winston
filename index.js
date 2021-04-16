@@ -27,11 +27,11 @@ const TOKEN =
 const PREFIX = (process.env.MODE == "DEVELOPER" ? "?" : ".");
 const MONGO_URL = (process.env.MODE == "DEVELOPER" ? process.env.MONGO_URL_OLD : process.env.MONGO_URL);
 
-global.cache = { starboards: {} }; // memory data
+global.cache = { starboards: {}, queues: {} }; // memory data
 
-const client = new Discord.Client({
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
-});
+// const client = new Discord.Client({
+//   partials: ["MESSAGE", "CHANNEL", "REACTION"],
+// });
 
 const bot = new CommandoClient({
   owner: process.env.CREATOR,
@@ -51,11 +51,13 @@ bot.setProvider(
     })
 );
 
-client.login(TOKEN);
+// client.login(TOKEN);
 
 bot.login(TOKEN);
 
 bot.on("ready", async () => {
+  console.log("Loading commands...");
+
   bot.registry
     .registerDefaultTypes()
     .registerDefaultGroups()
@@ -68,6 +70,7 @@ bot.on("ready", async () => {
       ["images", "Image commands"],
       ["moderation", "Moderation commands"],
       ["memes", "Meme commands"],
+      ["music", "Music commands"],
       ["starboard", "Starboard commands"],
       ["text", "Text commands"],
       ["utility", "Utility commands"],
@@ -78,6 +81,7 @@ bot.on("ready", async () => {
     bot.user.setActivity(`${bot.guilds.cache.size} servers`, {
       type: "WATCHING",
     });
+    
   console.log(`Signed in as ${bot.user.tag}!`);
 });
 
@@ -189,7 +193,7 @@ bot.on("message", async (message) => {
   }
 });
 
-client.on("messageReactionAdd", async (reaction, user) => {
+bot.on("messageReactionAdd", async (reaction, user) => {
   if (reaction.partial) await reaction.fetch();
 
   StarboardManager(reaction, user); // All starboard reaction functionality
@@ -320,7 +324,7 @@ async function StarboardManager(reaction, user) {
   }
 }
 
-client.on("messageReactionRemove", async (reaction, user) => {});
+bot.on("messageReactionRemove", async (reaction, user) => {});
 
 /*** CALLED WHEN REDIS EXPIRES ***/
 redis.expire(async (message) => {
