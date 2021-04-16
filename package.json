@@ -1,6 +1,9 @@
 {
   "name": "winston",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  },
   "description": "A multi-purpose Discord Commando Bot",
   "main": "index.js",
   "scripts": {
