@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 const { SendMeme } = require("./memeFunction");
 
-module.exports = class LyricsCommand extends (
+module.exports = class MemeCommand extends (
   Command
 ) {
   constructor(bot) {

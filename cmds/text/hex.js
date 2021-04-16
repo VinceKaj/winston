@@ -2,7 +2,7 @@ const { Command } = require("discord.js-commando");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 
-module.exports = class BinaryCommand extends (
+module.exports = class HexCommand extends (
   Command
 ) {
   constructor(bot) {

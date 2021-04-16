@@ -1,7 +1,7 @@
 const { Command } = require("discord.js-commando");
 const Discord = require("discord.js");
 
-module.exports = class PremiumCommand extends (
+module.exports = class LogCommand extends (
   Command
 ) {
   constructor(bot) {

@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 const { SendMeme } = require("./memeFunction");
 
-module.exports = class LyricsCommand extends (
+module.exports = class Me_IrlCommand extends (
   Command
 ) {
   constructor(bot) {

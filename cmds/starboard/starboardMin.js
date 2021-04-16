@@ -5,7 +5,7 @@ const mongo = require("./../../mongo");
 
 const starboardMinFunction = require("./starboardMinFunction");
 
-module.exports = class WelcomeCommand extends (
+module.exports = class StarboardMinCommand extends (
   Command
 ) {
   constructor(bot) {

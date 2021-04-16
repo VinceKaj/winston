@@ -5,7 +5,7 @@ const mongo = require("./../../mongo");
 
 const selfStarFunction = require("./selfStarFunction");
 
-module.exports = class WelcomeCommand extends (
+module.exports = class SelfStarCommand extends (
   Command
 ) {
   constructor(bot) {

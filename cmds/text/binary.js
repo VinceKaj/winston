@@ -25,9 +25,11 @@ module.exports = class BinaryCommand extends (
 
     if (args[0]) {
       let type;
-      if (args[0].toLowerCase() == "decode")
+      let input = args[0].toLowerCase();
+
+      if (input == "decode" || input == "decrypt")
         type = ["decode", "text"];
-      else if (args[0].toLowerCase() == "encode")
+      else if (input == "encode" || input == "encrypt")
         type = ["text", "binary"];
       else {
         channel.send("Please specify whether you want to encode or decode.\n`binary encode {text}`\n`binary decode {binary}`");

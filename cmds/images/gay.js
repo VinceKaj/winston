@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 const { SendFilter } = require("./filterFuntion");
 
-module.exports = class AvatarCommand extends (
+module.exports = class GayCommand extends (
   Command
 ) {
   constructor(bot) {

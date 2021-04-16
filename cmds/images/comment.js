@@ -2,7 +2,7 @@ const { Command } = require("discord.js-commando");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 
-module.exports = class AvatarCommand extends (
+module.exports = class CommentCommand extends (
   Command
 ) {
   constructor(bot) {
@@ -13,7 +13,7 @@ module.exports = class AvatarCommand extends (
       format: `[profile picture url], [name], {message}`,
       description: "generate a fake youtube comment",
       examples: [
-        `.comment https://cdn.discordapp.com/avatars/786699646114070529/1fcba2b59a6ac726b7dfb59d4bdf155c.webp, Winston, who's watching in 2020?`,
+        `.comment https://cdn.discordapp.com/avatars/786699646114070529/1fcba2b59a6ac726b7dfb59d4bdf155c.png, Winston, who's watching in 2020?`,
       ],
       throttling: {
         usages: 1,

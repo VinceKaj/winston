@@ -6,7 +6,7 @@ const mongo = require("../../mongo");
 const selfStarFunction = require("./selfStarFunction");
 const starboardminFunction = require("./starboardMinFunction")
 
-module.exports = class WelcomeCommand extends (
+module.exports = class StarboardCommand extends (
   Command
 ) {
 
