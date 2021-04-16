@@ -38,7 +38,7 @@ module.exports = class EchoCommand extends (
         return;
       }
 
-      channel.send(args);
+      channel.send(args.join(" "));
       message.react("✅");
     } else {
       channel.send("I cannot send empty messages.");
